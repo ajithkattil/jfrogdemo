@@ -7,4 +7,5 @@ pipeline {
                   echo  'Creating Docker image of the Python tool '
                   }
               }
-
+            }
+          }
