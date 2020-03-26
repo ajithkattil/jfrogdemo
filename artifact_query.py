@@ -2,6 +2,7 @@
 # The Artifactory server path and API Key need to be supplied as arguments to the script
 ########################################################################################################
 import sys
+import json
 from artifactory import ArtifactoryPath
 from pprint import pprint
 
@@ -13,14 +14,14 @@ from pprint import pprint
 
 #art_url=sys.argv[1]
 #apikey=sys.argv[2]
-
-art_url="http://jfrog.local"
+art_url="http://jfrog.local/artifactory"
 key="AKCp5ekmesKJi3ccYGVL5EAxGTtwvQyHwKrkQ9jH3D4KFdL91BLERDphTXjSAPJMp2x3zwXTC"
 aql = ArtifactoryPath("http://jfrog.local/artifactory", apikey="AKCp5ekmesKJi3ccYGVL5EAxGTtwvQyHwKrkQ9jH3D4KFdL91BLERDphTXjSAPJMp2x3zwXTC")# path to artifactory, NO repo
 #aql = ArtifactoryPath(art_url."/artifactory", apikey=key)# path to artifactory, NO repo
 
 artifacts = aql.aql("items.find()", ".include", ["name","stat.downloads"])
 # The following steps will filter the artifacts list and give a list of only jars
+
 jarlistall=[]
 for artifactdetails in artifacts:
     for key, value in artifactdetails.items():
@@ -43,7 +44,8 @@ for jardetails in jarlistall:
 # A list of dictionaries with each dictionary having two items
 #sample list item:-  {'multi1-3.7-20190715.221341-10.jar': [{'downloads': 0}]}
 
-# The following steps will create a dictionary with key as jar name and value as number of downloads
+# The following steps will create a dictionary with key as jar name and value
+# as number of downloads
 # This will make it easy to do dictionary manipulation of dictionary values
 
 jardict={}
@@ -57,16 +59,15 @@ for jardownloaddetails in jardownloadlist:
 #print(jardict)
 
 max = max(jardict.values())
-print(f'highest download value is  {max}.')
-
 # iterate through the dictionary
 max2 = 0
 for v in jardict.values():
      if(v>max2 and v<max):
             max2 = v
 # print the second largest value
-print(f'second highest download value is  {max2}.')
+#print(f'second highest download value is  {max2}.')
 
+print(f'The repository {art_url} has been queried and the highest download value is {max} and the second highest download value is {max2}.')
 # This function will give the list of jars with a particular value of downloads
 def getKeysByValue(dictOfElements, valueToFind):
     listOfKeys = list()
@@ -76,12 +77,19 @@ def getKeysByValue(dictOfElements, valueToFind):
             listOfKeys.append(item[0])
     return  listOfKeys
 
+#######REPORTING ###############################################
 mostpopularjars=getKeysByValue(jardict,max)
 secondpopularjars=getKeysByValue(jardict,max2)
+#print(f'highest downloads is  {max}. and the following are the jars')
+#pprint(mostpopularjars)
+#print('*********************************************************')
+print('*********************************************************')
+#print(f'Second highest downloads is  {max2}. and the following are the jars')
+#pprint(secondpopularjars)
 
-print(f'highest downloads is  {max}. and the following are the jars')
-pprint(mostpopularjars)
-print('*********************************************************')
-print('*********************************************************')
-print(f'Second highest downloads is  {max2}. and the following are the jars')
-pprint(secondpopularjars)
+# Create a dictionary with the jar details
+combined_report_dict={'most popular jars': mostpopularjars, 'second most popular jars': secondpopularjars}
+#print(combined_report_dict)
+
+print("############Json report provided below############")
+print(json.dumps(combined_report_dict, indent=2))
