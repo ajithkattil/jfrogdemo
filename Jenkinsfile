@@ -5,7 +5,7 @@ pipeline {
        stage('Create Docker Image')  {
            steps {
                   echo  'Creating Docker image of the Python tool '
-                  sh "docker build . -t jfrog.demo:"
+                  sh "/usr/local/bin/docker build . -t jfrog.demo:"
                 }
               }
             }
