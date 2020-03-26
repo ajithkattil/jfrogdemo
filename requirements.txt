@@ -4,6 +4,6 @@ jenkinsapi==0.3.9
 path.py==11.5.0
 pathlib2==2.3.3
 pip==18.1
-psutil==5.4.8
+psutil==5.6.6
 requests==2.21.0
 dohq-artifactory==0.5.dev243
