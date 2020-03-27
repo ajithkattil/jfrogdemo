@@ -57,17 +57,18 @@ for jardownloaddetails in jardownloadlist:
         dictitem={key:downloadvalue}
         jardict[key] = downloadvalue
 #print(jardict)
-
+print('*********************************************************')
 max = max(jardict.values())
 # iterate through the dictionary
+print(f'The highest no of downloads is  {max}.')
 max2 = 0
 for v in jardict.values():
      if(v>max2 and v<max):
             max2 = v
 # print the second largest value
-#print(f'second highest download value is  {max2}.')
+print(f'second highest no of downloads is  {max2}.')
 
-print(f'The repository {art_url} has been queried and the highest download value is {max} and the second highest download value is {max2}.')
+#print(f'The repository {art_url} has been queried and the highest download value is {max} and the second highest download value is {max2}.')
 # This function will give the list of jars with a particular value of downloads
 def getKeysByValue(dictOfElements, valueToFind):
     listOfKeys = list()
@@ -80,7 +81,6 @@ def getKeysByValue(dictOfElements, valueToFind):
 #######REPORTING ###############################################
 mostpopularjars=getKeysByValue(jardict,max)
 secondpopularjars=getKeysByValue(jardict,max2)
-#print(f'highest downloads is  {max}. and the following are the jars')
 #pprint(mostpopularjars)
 #print('*********************************************************')
 print('*********************************************************')
