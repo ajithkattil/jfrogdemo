@@ -31,9 +31,7 @@ node ('master') {
              // end of with Credentials tag
 
            }
-           //end of stage create Docker image
-           
-         
+           //end of stage create Docker image    
      
      //Test docker image
      stage ('Test') {
@@ -50,8 +48,7 @@ node ('master') {
             
      }
      // end of stage test
-     
-     
+        
      //Scan Build Artifacts in Xray
     stage('Xray Scan') {
          if (XRAY_SCAN == "YES") {
@@ -68,7 +65,6 @@ node ('master') {
          sleep 30
      } 
 
-
  stage 'Deploy to GKE Cluster'
     
    // if (KUBE-CLUSTER-DEPLOY == "YES") {
@@ -76,8 +72,6 @@ node ('master') {
 //                sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
 //                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME_TEST, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
 //            }
-    
-
 
      
 }
@@ -90,6 +84,4 @@ def testApp (tag) {
         
          }
       }
-
-
   }
