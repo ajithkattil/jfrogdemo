@@ -16,7 +16,7 @@ from pprint import pprint
 #apikey=sys.argv[2]
 art_url="http://jfrog.local/artifactory"
 key="AKCp5ekmesKJi3ccYGVL5EAxGTtwvQyHwKrkQ9jH3D4KFdL91BLERDphTXjSAPJMp2x3zwXTC"
-aql = ArtifactoryPath("http://jfrog.local/artifactory", apikey="AKCp5ekmesKJi3ccYGVL5EAxGTtwvQyHwKrkQ9jH3D4KFdL91BLERDphTXjSAPJMp2x3zwXTC")# path to artifactory, NO repo
+aql = ArtifactoryPath("http://35.193.65.132/artifactory", apikey="AKCp5ekmesKJi3ccYGVL5EAxGTtwvQyHwKrkQ9jH3D4KFdL91BLERDphTXjSAPJMp2x3zwXTC")# path to artifactory, NO repo
 #aql = ArtifactoryPath(art_url."/artifactory", apikey=key)# path to artifactory, NO repo
 
 artifacts = aql.aql("items.find()", ".include", ["name","stat.downloads"])
