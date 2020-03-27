@@ -21,4 +21,4 @@ ENV APP_ENV development
 EXPOSE 5035
 
 # Running Python Application
-CMD ["python", "artifact_query.py"]
+CMD ["python", "artifact_query.py", "FOREGROUND" ]
